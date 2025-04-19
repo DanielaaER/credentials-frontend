@@ -1,0 +1,105 @@
+/* Reset y base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #FDF7FF; /* Fondo lila muy claro */
+  color: #1E1F23; /* Texto oscuro */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Enlaces globales */
+a {
+  color: var(--primary-color, #9D8DF1);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover,
+a:focus {
+  color: var(--secondary-color, #FFB1DA);
+  outline: none;
+}
+
+/* Variables CSS globales */
+:root {
+  --primary-color: #9D8DF1;       /* Lila pastel azulado */
+  --secondary-color: #FFB1DA;     /* Rosa pastel */
+  --accent-color: #AEE6E6;        /* Aqua suave */
+  --light-bg: #FDF7FF;            /* Casi blanco con tono lila */
+  --dark-bg: #1E1F23;             /* Texto/fondo oscuro */
+  --card-dark: #2A2B31;           /* Para cards en dark mode */
+}
+
+/* Scroll suave en toda la app */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Inputs, buttons y selects base para uniformidad */
+input, button, select, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 2px solid var(--accent-color);
+  padding: 0.5rem 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline-offset: 2px;
+}
+
+input:focus, button:focus, select:focus, textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
+  outline: none;
+}
+
+/* Botones primarios globales */
+button {
+  background: linear-gradient(90deg, var(--primary-color));
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+button:hover:not(:disabled) {
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  box-shadow: 0 8px 20px rgba(255, 177, 218, 0.6);
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Scrollbar estilizado (opcional) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Responsive base */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}

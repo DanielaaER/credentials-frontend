@@ -1,0 +1,7 @@
+<nav>
+  <a *ngIf="isAuthenticated(); else authLinks" (click)="logout()">Logout</a>
+  <ng-template #authLinks>
+    <a routerLink="/login">Login</a>
+  </ng-template>
+</nav>
+<router-outlet></router-outlet>

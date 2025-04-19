@@ -1,0 +1,56 @@
+/* Navbar principal */
+nav {
+  background: linear-gradient(90deg, #9D8DF1); /* degradado lila a rosa */
+  padding: 12px 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0 8px 25px rgba(157, 141, 241, 0.35); /* sombra suave y colorida */
+  border-radius: 0 0 20px 20px; /* bordes redondeados abajo */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilo para los enlaces del navbar */
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  margin-right: 14px;
+  border-radius: 15px;
+  font-weight: 700;
+  transition: background-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+  user-select: none;
+}
+
+/* Efecto hover para los enlaces */
+nav a:hover {
+  background-color: rgba(255, 177, 218, 0.6); /* rosa pastel semitransparente */
+  color: #1E1F23; /* texto oscuro para contraste */
+  box-shadow: 0 6px 20px rgba(255, 177, 218, 0.5);
+}
+
+/* Enlace activo */
+nav a.active {
+  background-color: #C2185B; /* rosa fuerte */
+  color: #FFE3E9; /* rosa claro */
+  box-shadow: 0 6px 20px rgba(194, 24, 91, 0.6);
+}
+
+/* Para pantallas pequeñas (responsive) */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+    border-radius: 0 0 25px 25px;
+  }
+
+  nav a {
+    margin-right: 0;
+    margin-bottom: 14px;
+    font-size: 1.2rem;
+    width: 90%; /* ocupan casi todo el ancho */
+    text-align: center;
+  }
+}

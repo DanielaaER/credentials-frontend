@@ -1,0 +1,25 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+  <h2>Iniciar Sesión</h2>
+
+  <label for="num_control">Número de control</label>
+  <input
+    id="num_control"
+    formControlName="num_control"
+    type="text"
+    placeholder="ES25000001"
+    autocomplete="username"
+  />
+
+  <label for="password">Contraseña</label>
+  <input
+    id="password"
+    formControlName="password"
+    type="password"
+    placeholder="Tu contraseña"
+    autocomplete="current-password"
+  />
+
+  <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+
+  <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+</form>
