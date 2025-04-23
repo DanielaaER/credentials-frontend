@@ -1,0 +1,23 @@
+<br>
+
+<button class="btn-back" (click)="goBack()">← Volver</button>
+
+<h2> Cursos</h2>
+
+<div *ngIf=" role === 'docente' || role === 'estudiante' || role === 'administrador'" class="btn-container">  
+  <div class="curso-cards">
+    <div
+      *ngFor="let curso of cursos"
+      (click)="verCurso(curso.id)"
+      class="curso-card"
+      tabindex="0"
+      role="button"
+      (keydown.enter)="verCurso(curso.id)"
+      (keydown.space)="verCurso(curso.id)"
+    >
+      <h3>{{ curso.nombre_clase }}</h3>
+      <p><strong>Clave:</strong> {{ curso.clave_clase }}</p>
+      <p><strong>ID Aula:</strong> {{ curso.id_aula }}</p>
+    </div>
+  </div>
+//</div>

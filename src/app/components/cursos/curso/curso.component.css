@@ -1,0 +1,146 @@
+.horario-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.horario-card {
+  background: var(--light-bg, #fdf7ff);
+  border-radius: 20px;
+  box-shadow: 0 10px 28px rgba(157, 141, 241, 0.15);
+  padding: 1rem 2rem;
+  flex: 1 1 280px;
+  max-width: 300px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: var(--dark-bg, #1e1f23);
+  outline: none;
+  user-select: none;
+}
+
+.horario-card:hover,
+.horario-card:focus-visible {
+  box-shadow: 0 15px 40px rgba(157, 141, 241, 0.4);
+  transform: translateY(-6px);
+  background: var(--accent-color, #aee6e6);
+  color: var(--dark-bg, #1e1f23);
+}
+
+.horario-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  font-weight: 900;
+  color: var(--primary-color, #9d8df1);
+  font-size: 1.5rem;
+}
+
+.horario-card p {
+  margin: 0.2rem 0;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.btn-back {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem; /* margen abajo para separar del contenido */
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+h2 {
+  margin: 1.5rem 1.5rem 2rem 1.5rem; /* arriba, derecha, abajo, izquierda */
+  color: var(--primary-color, #9d8df1);
+  font-weight: 900;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.estudiantes-table {
+  width: 100%;
+  max-width: 700px;
+  margin: 1rem auto 2rem auto;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--dark-bg, #1e1f23);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(157, 141, 241, 0.15);
+}
+
+.estudiantes-table th,
+.estudiantes-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.estudiantes-table th {
+  background-color: var(--primary-color, #9d8df1);
+  color: white;
+  font-weight: 700;
+}
+
+.estudiantes-table tbody tr:hover {
+  background-color: var(--accent-color, #aee6e6);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Para pantallas pequeñas, tabla scrollable horizontal */
+@media (max-width: 600px) {
+  .estudiantes-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+.asistencia-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 1.5rem auto 3rem auto;
+}
+
+.asistencia-control label {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.asistencia-control input[type="date"] {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  transition: border-color 0.3s ease;
+}
+
+.asistencia-control input[type="date"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
+}
+
+.btn-large {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(157, 141, 241, 0.6);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.btn-large:hover {
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  box-shadow: 0 12px 30px rgba(255, 177, 218, 0.7);
+}

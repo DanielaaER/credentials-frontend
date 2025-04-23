@@ -1,0 +1,45 @@
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Exactamente 3 columnas */
+  gap: 1.5rem;
+  justify-items: center;
+  padding: 2rem;
+}
+
+.btn-large {
+  width: 220px;
+  height: 80px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #9D8DF1);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(157, 141, 241, 0.6);
+  transition: background 0.4s ease, transform 0.2s ease;
+}
+
+.btn-large:hover {
+  background: linear-gradient(90deg, #FFB1DA, #9D8DF1);
+  transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  .btn-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .btn-large {
+    width: 180px;
+    height: 70px;
+    font-size: 1.2rem;
+  }
+}

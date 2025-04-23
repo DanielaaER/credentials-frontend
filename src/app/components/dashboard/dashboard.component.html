@@ -1,0 +1,16 @@
+<div class="dashboard-container">
+  <!-- Botones para estudiante o docente -->
+  <div *ngIf="role === 'estudiante' || role === 'docente'" class="btn-grid">
+    <button (click)="verCursos()" class="btn-large">Ver Cursos</button>
+  </div>
+
+  <!-- Botones para administrador -->
+  <div *ngIf="role === 'administrador'" class="btn-grid">
+    <button (click)="verAdministradores()" class="btn-large">Ver Administradores</button>
+    <button (click)="verDocentes()" class="btn-large">Ver Docentes</button>
+    <button (click)="verEstudiantes()" class="btn-large">Ver Estudiantes</button>
+    <button (click)="verClases()" class="btn-large">Ver Clases</button>
+    <button (click)="verAulas()" class="btn-large">Ver Aulas</button>
+    <button (click)="verEdificios()" class="btn-large">Ver Edificios</button>
+  </div>
+</div>

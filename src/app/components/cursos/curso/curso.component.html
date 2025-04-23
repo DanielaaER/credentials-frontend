@@ -1,0 +1,54 @@
+<button class="btn-back" (click)="goBack()">← Volver</button>
+
+<h2>Horario de clases</h2>
+
+<div *ngIf="horarios.length > 0; else noHorario" class="horario-cards">
+  <div *ngFor="let h of horarios" class="horario-card">
+    <h4>{{ h.dia }}</h4>
+    <p><strong>Inicio:</strong> {{ h.hora_inicio }}</p>
+    <p><strong>Fin:</strong> {{ h.hora_fin }}</p>
+    <p><strong>Aula:</strong> {{ h.nombre_aula }}</p>
+  </div>
+</div>
+<ng-template #noHorario>
+  <p>No hay horarios disponibles.</p>
+</ng-template>
+
+<div *ngIf="role === 'docente' || role === 'administrador'">
+  <div class="asistencia-control">
+    <label for="fecha">Selecciona fecha:</label>
+    <input
+      id="fecha"
+      type="date"
+      [(ngModel)]="fechaSeleccionada"
+      (change)="onFechaChange()"
+      max="{{ today }}"
+      required
+    />
+    <button class="btn-large" (click)="descargarPDF()">
+      Descargar lista de asistencia
+    </button>
+  </div>
+
+  <h2>Lista de Estudiantes</h2>
+  <table
+    class="estudiantes-table"
+    *ngIf="estudiantes.length > 0; else noEstudiantes"
+  >
+    <thead>
+      <tr>
+        <th>Número de Control</th>
+        <th>Nombre Completo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of estudiantes">
+        <td>{{ e.num_control }}</td>
+        <td>{{ e.nombre }} {{ e.apellido_pat }} {{ e.apellido_mat }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noEstudiantes>
+    <p>No hay estudiantes inscritos.</p>
+  </ng-template>
+</div>
