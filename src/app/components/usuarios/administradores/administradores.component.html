@@ -1,0 +1,136 @@
+<button class="btn-back" (click)="goBack()">← Volver</button>
+<h2>Gestión de Administradores</h2>
+
+<!-- Botón para abrir el modal -->
+<button class="btn add" (click)="toggleForm()">Agregar Administrador</button>
+
+<!-- Modal flotante oscuro -->
+<div class="modal-overlay" *ngIf="showForm">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>{{ isUpdate ? 'Actualizar Administrador' : 'Agregar Administrador' }}</h3>
+      <span class="close" (click)="toggleForm()">×</span>
+    </div>
+    <div class="form-container">
+
+      <!-- Número de Control (solo en actualización) -->
+      <div class="form-row" *ngIf="isUpdate">
+        <label>Número de Control</label>
+        <input 
+          placeholder="Número de Control" 
+          [(ngModel)]="selectedAdministrador.num_control" 
+          readonly
+        />
+      </div>
+
+      <!-- Nombre -->
+      <div class="form-row">
+        <label>Nombre</label>
+        <input 
+          placeholder="Nombre" 
+          [ngModel]="isUpdate ? selectedAdministrador.nombre : newAdministrador.nombre"
+          (ngModelChange)="isUpdate ? selectedAdministrador.nombre = $event : newAdministrador.nombre = $event" 
+        />
+      </div>
+
+      <!-- Apellido Paterno -->
+      <div class="form-row">
+        <label>Apellido Paterno</label>
+        <input 
+          placeholder="Apellido Paterno" 
+          [ngModel]="isUpdate ? selectedAdministrador.apellido_pat : newAdministrador.apellido_pat"
+          (ngModelChange)="isUpdate ? selectedAdministrador.apellido_pat = $event : newAdministrador.apellido_pat = $event" 
+        />
+      </div>
+
+      <!-- Apellido Materno -->
+      <div class="form-row">
+        <label>Apellido Materno</label>
+        <input placeholder="Apellido Materno" 
+          [ngModel]="isUpdate ? selectedAdministrador.apellido_mat : newAdministrador.apellido_mat"
+          (ngModelChange)="isUpdate ? selectedAdministrador.apellido_mat = $event : newAdministrador.apellido_mat = $event" />
+      </div>
+
+      <div class="form-row">
+        <label>Teléfono</label>
+        <input 
+          placeholder="Teléfono (10 dígitos)" 
+          [ngModel]="isUpdate ? selectedAdministrador.telefono : newAdministrador.telefono" 
+          (ngModelChange)="isUpdate ? selectedAdministrador.telefono = $event : newAdministrador.telefono = $event"
+          (blur)="isFormValid()" />
+        <div *ngIf="phoneError" class="error">{{ phoneError }}</div>
+      </div>
+
+
+      <!-- Dirección -->
+      <div class="form-row">
+        <label>Dirección</label>
+        <input placeholder="Dirección" [ngModel]="isUpdate ? selectedAdministrador.direccion : newAdministrador.direccion" (ngModelChange)="isUpdate ? selectedAdministrador.direccion = $event : newAdministrador.direccion = $event" />
+      </div>
+
+      
+      <!-- Correo -->
+      <div class="form-row">
+        <label>Correo</label>
+        <input 
+          placeholder="Correo" 
+          [ngModel]="isUpdate ? selectedAdministrador.email : newAdministrador.email" 
+          (ngModelChange)="isUpdate ? selectedAdministrador.email = $event : newAdministrador.email = $event"
+          (blur)="isFormValid()" />
+        <div *ngIf="emailError" class="error">{{ emailError }}</div>
+      </div>
+
+      <!-- Password (solo al crear) -->
+      <div class="form-row" *ngIf="!isUpdate">
+        <label>Password</label>
+        <input type="password" placeholder="Password" [(ngModel)]="newAdministrador.password" />
+      </div>
+
+      <!-- Periodo -->
+      <div class="form-row">
+        <label>Puesto</label>
+        <input placeholder="Puesto" [ngModel]="isUpdate ? selectedAdministrador.puesto_admin : newAdministrador.puesto_admin" (ngModelChange)="isUpdate ? selectedAdministrador.puesto_admin = $event : newAdministrador.puesto_admin = $event" />
+      </div>
+
+      <div class="form-actions">
+        <button class="btn post" (click)="createOrUpdateAdministrador()">
+          {{ isUpdate ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button class="btn cancel" (click)="resetForm(); toggleForm();">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Tabla de administradores -->
+<table class="crud-table">
+  <thead>
+    <tr>
+      <th>Número de Control</th>
+      <th>Nombre</th>
+      <th>Apellido Paterno</th>
+      <th>Apellido Materno</th>
+      <th>Teléfono</th>
+      <th>Correo</th>
+      <th>Puesto</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let administrador of administradores">
+      <td>{{ administrador.num_control }}</td>
+      <td>{{ administrador.nombre }}</td>
+      <td>{{ administrador.apellido_pat }}</td>
+      <td>{{ administrador.apellido_mat }}</td>
+      <td>{{ administrador.telefono }}</td>
+      <td>{{ administrador.email }}</td>
+      <td>{{ administrador.puesto_admin }}</td>
+      <td class="actions">
+        <button class="btn patch" (click)="toggleForm(administrador)">Actualizar</button>
+        <button class="btn delete" (click)="deleteAdministrador(administrador.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
