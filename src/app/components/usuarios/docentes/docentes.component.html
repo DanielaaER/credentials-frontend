@@ -1,0 +1,147 @@
+<button class="btn-back" (click)="goBack()">← Volver</button>
+<h2>Gestión de Docentes</h2>
+
+<!-- Botón para abrir el modal -->
+<button class="btn add" (click)="toggleForm()">Agregar Docente</button>
+
+<!-- Modal flotante oscuro -->
+<div class="modal-overlay" *ngIf="showForm">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>{{ isUpdate ? 'Actualizar Docente' : 'Agregar Docente' }}</h3>
+      <span class="close" (click)="toggleForm()">×</span>
+    </div>
+    <div class="form-container">
+
+      <!-- Número de Control (solo en actualización) -->
+      <div class="form-row" *ngIf="isUpdate">
+        <label>Número de Control</label>
+        <input 
+          placeholder="Número de Control" 
+          [(ngModel)]="selectedDocente.num_control" 
+          readonly
+        />
+      </div>
+
+      
+      <!-- Nombre -->
+      <div class="form-row">
+        <label>Nombre</label>
+        <input 
+          placeholder="Nombre" 
+          [ngModel]="isUpdate ? selectedDocente.nombre : newDocente.nombre"
+          (ngModelChange)="isUpdate ? selectedDocente.nombre = $event : newDocente.nombre = $event"
+        />
+      </div>
+
+      <!-- Apellido Paterno -->
+      <div class="form-row">
+        <label>Apellido Paterno</label>
+        <input 
+          placeholder="Apellido Paterno" 
+          [ngModel]="isUpdate ? selectedDocente.apellido_pat : newDocente.apellido_pat"
+          (ngModelChange)="isUpdate ? selectedDocente.apellido_pat = $event : newDocente.apellido_pat = $event"
+        />
+      </div>
+
+      <!-- Apellido Materno -->
+      <div class="form-row">
+        <label>Apellido Materno</label>
+        <input 
+          placeholder="Apellido Materno" 
+          [ngModel]="isUpdate ? selectedDocente.apellido_mat : newDocente.apellido_mat"
+          (ngModelChange)="isUpdate ? selectedDocente.apellido_mat = $event : newDocente.apellido_mat = $event"
+        />
+      </div>
+
+      <div class="form-row">
+        <label>Teléfono</label>
+        <input 
+          placeholder="Teléfono (10 dígitos)" 
+          [ngModel]="isUpdate ? selectedDocente.telefono : newDocente.telefono"
+          (ngModelChange)="isUpdate ? selectedDocente.telefono = $event : newDocente.telefono = $event"
+          (blur)="isFormValid()" />
+        <div *ngIf="phoneError" class="error">{{ phoneError }}</div>
+      </div>
+
+
+      <!-- Dirección -->
+      <div class="form-row">
+        <label>Dirección</label>
+        <input 
+          placeholder="Dirección" 
+          [ngModel]="isUpdate ? selectedDocente.direccion : newDocente.direccion"
+          (ngModelChange)="isUpdate ? selectedDocente.direccion = $event : newDocente.direccion = $event"
+        />
+      </div>
+
+      <!-- Correo -->
+      <div class="form-row">
+        <label>Correo</label>
+        <input 
+          placeholder="Correo" 
+          [ngModel]="isUpdate ? selectedDocente.email : newDocente.email" 
+          (ngModelChange)="isUpdate ? selectedDocente.email = $event : newDocente.email = $event"
+          (blur)="isFormValid()" />
+        <div *ngIf="emailError" class="error">{{ emailError }}</div>
+      </div>
+
+      <!-- Password (solo al crear) -->
+      <div class="form-row" *ngIf="!isUpdate">
+        <label>Password</label>
+        <input type="password" placeholder="Password" [(ngModel)]="newDocente.password" />
+      </div>
+
+      <!-- Periodo -->
+      <div class="form-row">
+        <label>Periodo</label>
+        <input 
+          placeholder="Periodo" 
+          [ngModel]="isUpdate ? selectedDocente.periodo : newDocente.periodo"
+          (ngModelChange)="isUpdate ? selectedDocente.periodo = $event : newDocente.periodo = $event"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button class="btn post" (click)="createOrUpdateDocente()">
+          {{ isUpdate ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button class="btn cancel" (click)="resetForm(); toggleForm();">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Tabla de docentes -->
+<table class="crud-table">
+  <thead>
+    <tr>
+      <th>Número de Control</th>
+      <th>Nombre</th>
+      <th>Apellido Paterno</th>
+      <th>Apellido Materno</th>
+      <th>Teléfono</th>
+      <th>Correo</th>
+      <th>Periodo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let docente of docentes">
+      <td>{{ docente.num_control }}</td>
+      <td>{{ docente.nombre }}</td>
+      <td>{{ docente.apellido_pat }}</td>
+      <td>{{ docente.apellido_mat }}</td>
+      <td>{{ docente.telefono }}</td>
+      <td>{{ docente.email }}</td>
+      <td>{{ docente.periodo }}</td>
+      <td class="actions">
+        <button class="btn patch" (click)="verCursos(docente.id)">Ver</button>
+        <button class="btn patch" (click)="toggleForm(docente)">Actualizar</button>
+        <button class="btn delete" (click)="deleteDocente(docente.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
