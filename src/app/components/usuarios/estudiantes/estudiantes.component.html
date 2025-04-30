@@ -1,0 +1,159 @@
+<button class="btn-back" (click)="goBack()">← Volver</button>
+<h2>Gestión de Estudiantes</h2>
+
+<!-- Botón para abrir el modal -->
+<button class="btn add" (click)="toggleForm()">Agregar Estudiante</button>
+
+<!-- Modal flotante oscuro -->
+<div class="modal-overlay" *ngIf="showForm">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>{{ isUpdate ? 'Actualizar Estudiante' : 'Agregar Estudiante' }}</h3>
+      <span class="close" (click)="toggleForm()">×</span>
+    </div>
+    <div class="form-container">
+
+      <!-- Número de Control (solo en actualización) -->
+      <div class="form-row" *ngIf="isUpdate">
+        <label>Número de Control</label>
+        <input 
+          placeholder="Número de Control" 
+          [(ngModel)]="selectedEstudiante.num_control" 
+          readonly
+        />
+      </div>
+
+      
+      <!-- Nombre -->
+      <div class="form-row">
+        <label>Nombre</label>
+        <input 
+          placeholder="Nombre" 
+          [ngModel]="isUpdate ? selectedEstudiante.nombre : newEstudiante.nombre"
+          (ngModelChange)="isUpdate ? selectedEstudiante.nombre = $event : newEstudiante.nombre = $event"
+        />
+      </div>
+
+      <!-- Apellido Paterno -->
+      <div class="form-row">
+        <label>Apellido Paterno</label>
+        <input 
+          placeholder="Apellido Paterno" 
+          [ngModel]="isUpdate ? selectedEstudiante.apellido_pat : newEstudiante.apellido_pat"
+          (ngModelChange)="isUpdate ? selectedEstudiante.apellido_pat = $event : newEstudiante.apellido_pat = $event"
+        />
+      </div>
+
+      <!-- Apellido Materno -->
+      <div class="form-row">
+        <label>Apellido Materno</label>
+        <input 
+          placeholder="Apellido Materno" 
+          [ngModel]="isUpdate ? selectedEstudiante.apellido_mat : newEstudiante.apellido_mat"
+          (ngModelChange)="isUpdate ? selectedEstudiante.apellido_mat = $event : newEstudiante.apellido_mat = $event"
+        />
+      </div>
+
+      <div class="form-row">
+        <label>Teléfono</label>
+        <input 
+          placeholder="Teléfono (10 dígitos)" 
+          [ngModel]="isUpdate ? selectedEstudiante.telefono : newEstudiante.telefono"
+          (ngModelChange)="isUpdate ? selectedEstudiante.telefono = $event : newEstudiante.telefono = $event"
+          (blur)="isFormValid()" />
+        <div *ngIf="phoneError" class="error">{{ phoneError }}</div>
+      </div>
+
+
+      <!-- Dirección -->
+      <div class="form-row">
+        <label>Dirección</label>
+        <input 
+          placeholder="Dirección" 
+          [ngModel]="isUpdate ? selectedEstudiante.direccion : newEstudiante.direccion"
+          (ngModelChange)="isUpdate ? selectedEstudiante.direccion = $event : newEstudiante.direccion = $event"
+        />
+      </div>
+
+      <!-- Correo -->
+      <div class="form-row">
+        <label>Correo</label>
+        <input 
+          placeholder="Correo" 
+          [ngModel]="isUpdate ? selectedEstudiante.email : newEstudiante.email" 
+          (ngModelChange)="isUpdate ? selectedEstudiante.email = $event : newEstudiante.email = $event"
+          (blur)="isFormValid()" />
+        <div *ngIf="emailError" class="error">{{ emailError }}</div>
+      </div>
+
+      <!-- Password (solo al crear) -->
+      <div class="form-row" *ngIf="!isUpdate">
+        <label>Password</label>
+        <input type="password" placeholder="Password" [(ngModel)]="newEstudiante.password" />
+      </div>
+
+      <!-- Semestre  -->
+      <div class="form-row">
+        <label>Semestre</label>
+        <input 
+          placeholder="Semestre" 
+          [ngModel]="isUpdate ? selectedEstudiante.semestre : newEstudiante.semestre"
+          (ngModelChange)="isUpdate ? selectedEstudiante.semestre = $event : newEstudiante.semestre = $event"
+        />
+      </div>
+
+      <!-- Carrera -->
+      <div class="form-row">
+        <label>Carrera</label>
+        <input 
+          placeholder="Carrera" 
+          [ngModel]="isUpdate ? selectedEstudiante.carrera : newEstudiante.carrera"
+          (ngModelChange)="isUpdate ? selectedEstudiante.carrera = $event : newEstudiante.carrera = $event"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button class="btn post" (click)="createOrUpdateEstudiante()">
+          {{ isUpdate ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button class="btn cancel" (click)="resetForm(); toggleForm();">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Tabla de estudiantes -->
+<table class="crud-table">
+  <thead>
+    <tr>
+      <th>Número de Control</th>
+      <th>Nombre</th>
+      <th>Apellido Paterno</th>
+      <th>Apellido Materno</th>
+      <th>Teléfono</th>
+      <th>Correo</th>
+      <th>Semestre</th>
+      <th>Carrera</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let estudiante of estudiantes">
+      <td>{{ estudiante.num_control }}</td>
+      <td>{{ estudiante.nombre }}</td>
+      <td>{{ estudiante.apellido_pat }}</td>
+      <td>{{ estudiante.apellido_mat }}</td>
+      <td>{{ estudiante.telefono }}</td>
+      <td>{{ estudiante.email }}</td>
+      <td>{{ estudiante.semestre }}</td>
+      <td>{{ estudiante.carrera }}</td>
+      <td class="actions">
+        <button class="btn patch" (click)="verCursos(estudiante.id)">Ver</button>
+        <button class="btn patch" (click)="toggleForm(estudiante)">Actualizar</button>
+        <button class="btn delete" (click)="deleteEstudiante(estudiante.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
