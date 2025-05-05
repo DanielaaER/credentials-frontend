@@ -1,0 +1,25 @@
+<button class="btn-back" (click)="goBack()">← Volver</button>
+<h2>Horario Semanal</h2>
+
+<!-- Filtros por día -->
+<div class="filtros-dias">
+  <button *ngFor="let dia of diasDisponibles"
+          [ngClass]="{'selected': dia === diaSeleccionado}"
+          (click)="filtrarPorDia(dia)">
+    {{ dia }}
+  </button>
+</div>
+
+<!-- Tarjetas de horarios -->
+<div *ngIf="horariosFiltrados.length > 0; else noHorario" class="horario-cards">
+  <div *ngFor="let h of horariosFiltrados" class="horario-card">
+    <h4>{{ h.nombre_clase }}</h4>
+    <p><strong>Aula:</strong> {{ h.nombre_aula }}</p>
+    <p><strong>Horario:</strong> {{ h.hora_inicio }} - {{ h.hora_fin }}</p>
+    <p><strong>Clave:</strong> {{ h.clave_clase }}</p>
+  </div>
+</div>
+
+<ng-template #noHorario>
+  <p>No hay horarios disponibles para {{ diaSeleccionado }}.</p>
+</ng-template>

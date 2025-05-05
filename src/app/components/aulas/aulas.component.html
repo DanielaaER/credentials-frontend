@@ -1,0 +1,85 @@
+<button class="btn-back" (click)="goBack()">← Volver</button>
+<h2>Gestión de Aulas</h2>
+
+<!-- Botón para abrir el modal -->
+<button class="btn add" (click)="toggleForm()">Agregar Aula</button>
+
+<!-- Modal flotante oscuro -->
+<div class="modal-overlay" *ngIf="showForm">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>{{ isUpdate ? 'Actualizar Aula' : 'Agregar Aula' }}</h3>
+      <span class="close" (click)="toggleForm()">×</span>
+    </div>
+    <div class="form-container">
+
+      <!-- ID Aula (solo en actualización) -->
+      <div class="form-row" *ngIf="isUpdate">
+        <label>ID Aula</label>
+        <input 
+          placeholder="ID Aula" 
+          [(ngModel)]="selectedAula.id" 
+          readonly
+        />
+      </div>
+
+
+      <!-- Nombre -->
+      <div class="form-row">
+        <label>Nombre Aula</label>
+        <input 
+          placeholder="Nombre Aula" 
+          [ngModel]="isUpdate ? selectedAula.nombre_aula : newAula.nombre_aula"
+          (ngModelChange)="isUpdate ? selectedAula.nombre_aula = $event : newAula.nombre_aula = $event"
+        />
+      </div>
+
+
+      <!-- Selección de Edificio -->
+      <div class="form-row" *ngIf="edificios.length > 0 && !isUpdate">
+        <label>Edificio</label>
+        <select [(ngModel)]="newAula.id_edificio">
+          <option value="" disabled selected>Selecciona un edificio</option>
+          <option *ngFor="let edificio of edificios" [value]="edificio.id">{{ edificio.nombre_edificio }}</option>
+        </select>
+        <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+      </div>
+
+    <div class="form-actions">
+      <button class="btn post" (click)="createOrUpdateAula()">
+        {{ isUpdate ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button class="btn cancel" (click)="resetForm(); toggleForm();">Cancelar</button>
+    </div>
+
+
+      
+    </div>
+  </div>
+</div>
+
+<!-- Tabla de aulas -->
+<table class="crud-table">
+  <thead>
+    <tr>
+      <th>Clave Aula</th>
+      <th>Nombre Aula</th>
+      <th>ID Edificio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let aula of aulas">
+      <td>{{ aula.id }}</td>
+      <td>{{ aula.nombre_aula }}</td>
+      <td>{{ aula.id_edificio }}</td>
+      <td class="actions">
+        <button class="btn view" (click)="verDetalles(aula.id)">Ver Detalles</button>
+        <button class="btn patch" (click)="toggleForm(aula)">Actualizar</button>
+        <button class="btn delete" (click)="deleteAula(aula.id)">Eliminar</button>
+        
+      </td>
+    </tr>
+  </tbody>
+</table>
+
