@@ -1,0 +1,130 @@
+<button class="btn-back" (click)="goBack()">← Volver</button>
+<h2>Gestión de Clases</h2>
+
+<!-- Botón para abrir el modal -->
+<button class="btn add" (click)="toggleForm()">Agregar Clase</button>
+
+<!-- Modal flotante oscuro -->
+<div class="modal-overlay" *ngIf="showForm">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>{{ isUpdate ? 'Actualizar Clase' : 'Agregar Clase' }}</h3>
+      <span class="close" (click)="toggleForm()">×</span>
+    </div>
+    <div class="form-container">
+
+      <!-- Número de Control (solo en actualización) -->
+      <div class="form-row" *ngIf="isUpdate">
+        <label>Clave Clase</label>
+        <input 
+          placeholder="Clave Clase" 
+          [(ngModel)]="selectedClase.clave_clase" 
+          readonly
+        />
+      </div>
+
+      
+      <!-- Nombre -->
+      <div class="form-row">
+        <label>Nombre Clase</label>
+        <input 
+          placeholder="Nombre Clase" 
+          [ngModel]="isUpdate ? selectedClase.nombre_clase : newClase.nombre_clase"
+          (ngModelChange)="isUpdate ? selectedClase.nombre_clase = $event : newClase.nombre_clase = $event"
+        />
+      </div>
+
+      <!-- ID Aula -->
+      <!-- Selección de Edificio -->
+      <!-- Selección de Edificio -->
+       
+      <div class="form-row" *ngIf="!isUpdate">
+        <label>Edificio</label>
+        <select (change)="onSelectEdificio($event)">
+          <option value="" disabled selected>Selecciona un edificio</option>
+          <option *ngFor="let edificio of edificios" [value]="edificio.id">{{ edificio.nombre_edificio }}</option>
+        </select>
+      </div>
+
+      <!-- Selección de Aula -->
+      <div class="form-row" *ngIf="aulas.length > 0">
+        <label>Aula</label>
+        <select [(ngModel)]="newClase.id_aula">
+          <option value="" disabled selected>Selecciona un aula</option>
+          <option *ngFor="let aula of aulas" [value]="aula.id">{{ aula.nombre_aula }}</option>
+        </select>
+        <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+      </div>
+
+    <div class="form-actions">
+      <button class="btn post" (click)="createOrUpdateClase()">
+        {{ isUpdate ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button class="btn cancel" (click)="resetForm(); toggleForm();">Cancelar</button>
+    </div>
+
+
+      
+    </div>
+  </div>
+</div>
+
+<!-- Tabla de clases -->
+<table class="crud-table">
+  <thead>
+    <tr>
+      <th>Clave Clase</th>
+      <th>Nombre Clase</th>
+      <th>ID Aula</th>
+      <th>Docente</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let clase of clases">
+      <td>{{ clase.clave_clase }}</td>
+      <td>{{ clase.nombre_clase }}</td>
+      <td>{{ clase.id_aula }}</td>
+      <td>{{ clase.docente?.nombre || 'Sin asignar' }}</td>
+      <td class="actions">
+        <button class="btn view" (click)="verDetalles(clase.id)">Ver Detalles</button>
+        <button class="btn patch" (click)="toggleForm(clase)">Actualizar</button>
+        <button class="btn delete" (click)="deleteClase(clase.id)">Eliminar</button>
+        <button 
+          class="btn assign" 
+          [disabled]="!!clase.docente" 
+          (click)="abrirAsignacionDocente(clase)"
+        >
+          {{ clase.docente ? 'Docente asignado' : 'Asignar Docente' }}
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<div class="modal-overlay" *ngIf="showAsignacionDocente">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>Asignar Docente a {{ selectedClase.nombre_clase }}</h3>
+      <span class="close" (click)="cerrarAsignacionDocente()">×</span>
+    </div>
+    <div class="form-container">
+      <div class="form-row">
+        <label>Selecciona un Docente</label>
+        <select [(ngModel)]="selectedDocente">
+          <option *ngFor="let docente of docentes" [value]="docente.id">
+            {{ docente.nombre }} {{ docente.apellido_pat }} {{ docente.apellido_mat }}
+          </option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="btn post" (click)="asignarDocente()">Asignar</button>
+        <button class="btn cancel" (click)="cerrarAsignacionDocente()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,147 @@
+<button class="btn-back" (click)="goBack()">← Volver</button>
+
+<h2>Horario de clases</h2>
+
+
+<!-- Botón para agregar horario -->
+<div *ngIf="role === 'docente' || role === 'administrador'">
+  <button class="btn add" (click)="toggleAddHorario()">Agregar Horario</button>
+</div>
+
+<!-- Formulario para agregar horario -->
+<div *ngIf="showAddHorarioForm" class="modal-overlay">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>Agregar Horario</h3>
+      <span class="close" (click)="toggleAddHorario()">×</span>
+    </div>
+    <div class="form-container">
+      <div class="form-row">
+        <label>Día</label>
+        <select [(ngModel)]="nuevoHorario.dia" class="form-select">
+          <option value="" disabled selected>Selecciona un día</option>
+          <option *ngFor="let dia of diasDisponibles" [value]="dia">{{ dia }}</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Hora de Inicio</label>
+        <input type="time" [(ngModel)]="nuevoHorario.hora_inicio" class="form-input">
+      </div>
+      <div class="form-row">
+        <label>Hora de Fin</label>
+        <input type="time" [(ngModel)]="nuevoHorario.hora_fin" class="form-input">
+      </div>
+      <div class="form-actions">
+        <button class="btn post" (click)="agregarHorario()">Guardar</button>
+        <button class="btn cancel" (click)="toggleAddHorario()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Formulario para actualizar horario -->
+<div *ngIf="updateHorarioForm" class="modal-overlay">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>Actualizar Horario</h3>
+      <span class="close" (click)="toggleUpdateHorarioForm()">×</span>
+    </div>
+    <div class="form-container">
+      <div class="form-row">
+        <label>Día</label>
+        <select [(ngModel)]="selectedHorario.dia" class="form-select">
+          <option value="" disabled selected>Selecciona un día</option>
+          <option *ngFor="let dia of diasDisponibles" [value]="dia">{{ dia }}</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Hora de Inicio</label>
+        <input type="time" [(ngModel)]="selectedHorario.hora_inicio" class="form-input">
+      </div>
+      <div class="form-row">
+        <label>Hora de Fin</label>
+        <input type="time" [(ngModel)]="selectedHorario.hora_fin" class="form-input">
+      </div>
+      <div class="form-actions">
+        <button class="btn post" (click)="updateHorario()">Actualizar</button>
+        <button class="btn delete" (click)="deleteHorario(selectedHorario.id!)">Eliminar</button>
+        <button class="btn cancel" (click)="toggleUpdateHorarioForm()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tarjetas de horarios -->
+<div *ngIf="horarios.length > 0; else noHorario" class="horario-cards">
+  <div *ngFor="let h of horarios" class="horario-card" (click)="toggleUpdateHorario(h)">
+    <h4>{{ h.dia }}</h4>
+    <p><strong>Inicio:</strong> {{ h.hora_inicio }}</p>
+    <p><strong>Fin:</strong> {{ h.hora_fin }}</p>
+    <p><strong>Aula:</strong> {{ h.nombre_aula }}</p>
+  </div>
+</div>
+<ng-template #noHorario>
+  <p>No hay horarios disponibles.</p>
+</ng-template>
+
+
+
+
+
+
+<div *ngIf=" role === 'docente' || role === 'administrador'" >
+<!-- Selector de fecha y botón descargar asistencia -->
+
+
+
+<!-- Botón para agregar estudiante -->
+<div *ngIf="role === 'docente' || role === 'administrador'">
+  <button class="btn add" (click)="toggleAddEstudiante()">Agregar Estudiante</button>
+</div>
+
+<!-- Formulario para agregar estudiante -->
+<div *ngIf="showAddEstudianteForm" class="modal-overlay">
+  <div class="floating-form">
+    <div class="form-header">
+      <h3>Agregar Estudiante a la Clase</h3>
+      <span class="close" (click)="toggleAddEstudiante()">×</span>
+    </div>
+    <div class="form-container">
+      <div class="form-row">
+        <label>Estudiante</label>
+        <select [(ngModel)]="selectedEstudianteId" class="form-select">
+          <option value="0" disabled selected>Selecciona un estudiante</option>
+          <option *ngFor="let estudiante of estudiantesNoInscritos" [value]="estudiante.id">
+            {{ estudiante.nombre }} {{ estudiante.apellido_pat }} {{ estudiante.apellido_mat }}
+          </option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="btn post" (click)="asignarEstudiante()">Agregar</button>
+        <button class="btn cancel" (click)="toggleAddEstudiante()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  <h2>Lista de Estudiantes</h2>
+  <table class="estudiantes-table" *ngIf="estudiantes.length > 0; else noEstudiantes">
+    <thead>
+      <tr>
+        <th>Número de Control</th>
+        <th>Nombre Completo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of estudiantes">
+        <td>{{ e.num_control }}</td>
+        <td>{{ e.nombre }} {{ e.apellido_pat }} {{ e.apellido_mat }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noEstudiantes>
+  <p>No hay estudiantes inscritos.</p>
+</ng-template>
+
+</div>

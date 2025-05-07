@@ -1,0 +1,160 @@
+h2 {
+  margin: 1.5rem;
+  color: var(--primary-color, #9d8df1);
+  font-weight: 900;
+  text-align: center;
+}
+
+.btn.add {
+  background-color: #9d8df1;
+  margin: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+}
+
+.crud-table {
+  width: 90%;
+  margin: 1rem auto;
+  border-collapse: collapse;
+}
+
+.crud-table th, .crud-table td {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.crud-table th {
+  background-color: var(--primary-color, #9d8df1);
+  color: white;
+}
+
+/* Fondo oscuro bloqueante */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Formulario flotante */
+.floating-form {
+  background-color: #fdf7ff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 28px rgba(157, 141, 241, 0.4);
+  width: 500px;
+  max-width: 90%;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--primary-color, #9d8df1);
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 0.2rem;
+  font-weight: bold;
+  color: var(--primary-color, #9d8df1);
+}
+
+input {
+  padding: 0.5rem;
+  margin: 0.3rem 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.form-actions {
+  grid-column: span 2;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.btn.cancel {
+  background-color: #f44336;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  margin: 0.2rem;
+  color: white;
+  font-weight: bold;
+}
+
+.post {
+  background-color: #4caf50;
+}
+
+.patch {
+  background-color: #ff9800;
+}
+
+.delete {
+  background-color: #f44336;
+}
+
+.btn-back {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.error {
+  color: #392b3c;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+.error-msg {
+  margin: 1rem auto;
+  padding: 0.8rem;
+  background-color: #604366;
+  color: white;
+  text-align: center;
+  width: 80%;
+  border-radius: 8px;
+}
