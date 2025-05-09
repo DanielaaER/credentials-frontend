@@ -8,53 +8,63 @@
 <div class="modal-overlay" *ngIf="showForm">
   <div class="floating-form">
     <div class="form-header">
-      <h3>{{ isUpdate ? 'Actualizar Edificio' : 'Agregar Edificio' }}</h3>
+      <h3>{{ isUpdate ? "Actualizar Edificio" : "Agregar Edificio" }}</h3>
       <span class="close" (click)="toggleForm()">×</span>
     </div>
     <div class="form-container">
-
       <!-- Número de Control (solo en actualización) -->
       <div class="form-row" *ngIf="isUpdate">
         <label>Clave Edificio</label>
-        <input 
-          placeholder="Clave Edificio" 
-          [(ngModel)]="selectedEdificio.id" 
+        <input
+          placeholder="Clave Edificio"
+          [(ngModel)]="selectedEdificio.id"
           readonly
         />
       </div>
 
-      
       <!-- Nombre -->
       <div class="form-row">
         <label>Nombre Edificio</label>
-        <input 
-          placeholder="Nombre Edificio" 
-          [ngModel]="isUpdate ? selectedEdificio.nombre_edificio : newEdificio.nombre_edificio"
-          (ngModelChange)="isUpdate ? selectedEdificio.nombre_edificio = $event : newEdificio.nombre_edificio = $event"
+        <input
+          placeholder="Nombre Edificio"
+          [ngModel]="
+            isUpdate
+              ? selectedEdificio.nombre_edificio
+              : newEdificio.nombre_edificio
+          "
+          (ngModelChange)="
+            isUpdate
+              ? (selectedEdificio.nombre_edificio = $event)
+              : (newEdificio.nombre_edificio = $event)
+          "
         />
       </div>
 
       <div class="form-row">
         <label>Ubicacion </label>
-        <input 
-          placeholder="Ubicacion Edificio" 
-          [ngModel]="isUpdate ? selectedEdificio.ubicacion_edificio : newEdificio.ubicacion_edificio"
-          (ngModelChange)="isUpdate ? selectedEdificio.ubicacion_edificio = $event : newEdificio.ubicacion_edificio = $event"
+        <input
+          placeholder="Ubicacion Edificio"
+          [ngModel]="
+            isUpdate
+              ? selectedEdificio.ubicacion_edificio
+              : newEdificio.ubicacion_edificio
+          "
+          (ngModelChange)="
+            isUpdate
+              ? (selectedEdificio.ubicacion_edificio = $event)
+              : (newEdificio.ubicacion_edificio = $event)
+          "
         />
       </div>
-      
 
-
-
-    <div class="form-actions">
-      <button class="btn post" (click)="createOrUpdateEdificio()">
-        {{ isUpdate ? 'Actualizar' : 'Crear' }}
-      </button>
-      <button class="btn cancel" (click)="resetForm(); toggleForm();">Cancelar</button>
-    </div>
-
-
-      
+      <div class="form-actions">
+        <button class="btn post" (click)="createOrUpdateEdificio()">
+          {{ isUpdate ? "Actualizar" : "Crear" }}
+        </button>
+        <button class="btn cancel" (click)="resetForm(); toggleForm()">
+          Cancelar
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -75,12 +85,13 @@
       <td>{{ edificio.nombre_edificio }}</td>
       <td>{{ edificio.ubicacion_edificio }}</td>
       <td class="actions">
-        <button class="btn view" (click)="verDetalles(edificio.id)">Ver Detalles</button>
-        <button class="btn patch" (click)="toggleForm(edificio)">Actualizar</button>
-        <button class="btn delete" (click)="deleteEdificio(edificio.id)">Eliminar</button>
-
+        <button class="btn patch" (click)="toggleForm(edificio)">
+          Actualizar
+        </button>
+        <button class="btn delete" (click)="deleteEdificio(edificio.id)">
+          Eliminar
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
-
